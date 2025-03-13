@@ -14,7 +14,7 @@ Verifies Twitch signatures for security
 Manages OAuth authentication with Twitch
 Writes event data to JSON files in the specified directories
 Provides the same web routes as the original application
- 
+  
 # Twitch Data Collection
 
 Key Features
