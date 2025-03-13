@@ -32,7 +32,7 @@ Historical Data Analysis
 Detailed CSV storage of all metrics
 AWS S3 integration for data backup and sharing
 Daily reports with actionable insights
-
+ 
 
 Algorithm Optimization
 
