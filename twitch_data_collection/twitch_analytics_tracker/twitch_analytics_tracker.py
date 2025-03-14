@@ -73,13 +73,33 @@ live_metrics = {
 
 
 class TwitchAnalyticsTracker:
+    """
+    Main class for tracking Twitch analytics data.
+    
+    This class coordinates all aspects of the Twitch analytics system, including
+    API connections, data collection, storage, and dashboard visualization.
+    """
+    
     def __init__(self):
+        """
+        Initialize the TwitchAnalyticsTracker.
+        
+        Sets up the necessary connections and components for tracking Twitch analytics.
+        """
         self.stream_monitor = None
         self.subscriber_tracker = None
         self.initialize_connections()
         
     def initialize_connections(self):
-        """Initialize connections to Twitch API and AWS"""
+        """
+        Initialize connections to Twitch API and AWS.
+        
+        Sets up authentication with Twitch API, initializes AWS S3 client, 
+        and creates component instances for stream monitoring and subscriber tracking.
+        
+        Returns:
+            None
+        """
         from twitch_data_collection.stream_monitor import initialize_twitch
         
         logger.info("Initializing Twitch API connection...")
@@ -123,7 +143,15 @@ class TwitchAnalyticsTracker:
         logger.info("Initialization complete")
     
     def schedule_tasks(self):
-        """Schedule recurring tasks"""
+        """
+        Schedule recurring tasks for data collection and analysis.
+        
+        Sets up periodic tasks including stream status checks, subscriber count updates,
+        clip analysis, and report generation. Tasks run on separate threads.
+        
+        Returns:
+            None
+        """
         # Check stream status every minute
         schedule.every(1).minutes.do(lambda: asyncio.run(self.stream_monitor.check_stream_status()))
         
@@ -159,7 +187,15 @@ class TwitchAnalyticsTracker:
         logger.info("Scheduled tasks initialized")
 
     async def run(self):
-        """Run the Twitch Analytics Tracker"""
+        """
+        Run the Twitch Analytics Tracker.
+        
+        Connects to Twitch chat, schedules recurring tasks, performs initial checks,
+        starts the web dashboard, and keeps the application running.
+        
+        Returns:
+            None
+        """
         # Connect to Twitch chat
         global_state['chat'] = await setup_chat_connection(
             global_state['twitch'], 
@@ -196,7 +232,14 @@ class TwitchAnalyticsTracker:
 
 
 async def main():
-    """Main function to start the application"""
+    """
+    Main function to start the application.
+    
+    Initializes and runs the TwitchAnalyticsTracker.
+    
+    Returns:
+        None
+    """
     # Initialize the Twitch Analytics Tracker
     tracker = TwitchAnalyticsTracker()
     
